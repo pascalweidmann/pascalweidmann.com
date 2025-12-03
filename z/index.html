@@ -10,29 +10,14 @@
     *::before,
     *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-   html, body {
-  height: 100%;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  color: #fff;
-  scroll-behavior: smooth;
-}
-
-/* Body bekommt nur noch eine Hintergrundfarbe */
-body {
-  background: #000; /* fallback, kannst du anpassen */
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* Neues fixes Hintergrund-Layer */
-.bg {
-  position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
-  background: url("hintergrundbild.jpg") center/cover no-repeat;
-  z-index: -1;
-  will-change: transform; /* hilft Browser bei der Performance */
-}
+    html, body {
+      height: 100%;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: url("hintergrundbild.jpg") center/cover no-repeat fixed;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
 
     :root {
       --maxw: 900px;
@@ -44,12 +29,15 @@ body {
       justify-content: center;
       align-items: center;
       padding: 8vh 6vw;
+      scroll-snap-align: start;
+      position: relative;
     }
 
     .frame {
       width: 100%;
       max-width: var(--maxw);
       margin: 0 auto;
+      position: relative;
       text-align: center;
       
       
@@ -64,11 +52,15 @@ body {
     /* TITLE – jetzt etwas kleiner, damit er 100% passt */
     /* ---------------------------------------------- */
     h1 {
+      display: block;
+      width: 100%;
+      white-space: nowrap;
       font-weight: 500;
       letter-spacing: .018em;
       font-size: clamp(2.6rem, 9vw, 5.6rem);   /* kleiner als vorher */
       line-height: 1.2;
       margin-bottom: 2.8rem;
+      overflow: hidden;
     }
 
     /* ---------------------------------------------- */
@@ -115,7 +107,7 @@ body {
       font-weight: 600;
       text-decoration: none;
       font-size: clamp(1rem, 1.8vw, 1.12rem);
-      transition: border-color .2s ease;
+      transition: border-color .2s ease, opacity .2s ease;
     }
 
     /* ---------------------------------------------- */
@@ -177,8 +169,6 @@ body {
 </head>
 
 <body>
-  
-  <div class="bg"></div>
 
 <main>
 
