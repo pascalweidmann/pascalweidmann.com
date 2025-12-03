@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pascal Weidmann</title>
+  <meta name="description" content="Portfolio-Website Pascal Weidmann" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    :root { --maxw: 900px; }
+
+    body{
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #fff;
+      background: url("hintergrundbild.jpg") center center / cover no-repeat fixed;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+    @media (hover: none) and (pointer: coarse){
+      body{ background-attachment: scroll; }
+    }
+
+    .section{
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 6vh 6vw;
+      scroll-snap-align: start;
+      position: relative;
+      text-align: center;
+    }
+
+    .content{
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1{
+      margin: 0 0 1rem 0;
+      line-height: 1.1;
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      text-shadow: 0 2px 10px rgba(0,0,0,.35);
+    }
+
+    h2{
+      margin: 0;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      text-shadow: 0 2px 8px rgba(0,0,0,.35);
+      font-weight: 600;
+    }
+
+    p{
+      margin: .65rem 0 0 0;
+      line-height: 1.65;
+      font-size: clamp(1rem, 1.8vw, 1.1rem);
+    }
+
+    /* ■ ZENTRALER LESEBLOCK exakt so breit wie Portfolio */
+    .bio-wrapper{
+      width: 100%;
+      max-width: var(--maxw);
+      margin-top: 2.5rem;
+      background: rgba(0,0,0,.18);  /* sehr dezent */
+      backdrop-filter: blur(1.5px);
+      padding: 1.4rem 1.5rem;
+      border-radius: 1rem;
+    }
+    @supports not (backdrop-filter: blur(1.5px)){
+      .bio-wrapper{ background: rgba(0,0,0,.28); }
+    }
+
+    .bio p{
+      text-shadow:
+        0 0 1px rgba(0,0,0,.75),
+        0 1px 2px rgba(0,0,0,.6);
+    }
+
+    /* LINKS – größer & fett */
+    .links{
+      display: flex;
+      gap: 1.3rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: .5rem;
+    }
+
+    .links a{
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.65);
+      padding-bottom: 2px;
+      transition: border-color .2s ease, opacity .2s ease;
+      font-weight: 600;
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      letter-spacing: .02em;
+    }
+    .links a:hover{ border-color: #fff; opacity: .95; }
+
+    /* BUTTON */
+    .button{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem 1rem;
+      border: 1px solid rgba(255,255,255,.75);
+      border-radius: .85rem;
+      background: transparent;
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color .2s ease, transform .08s ease;
+      font-weight: 600;
+      margin-top: 1.6rem;
+    }
+    .button:hover{ border-color: #fff; }
+    .button:active{ transform: translateY(1px); }
+
+    /* Button blendet aus, wenn Portfolio sichtbar */
+    .cta-down.is-hidden{ opacity: 0; pointer-events: none; }
+
+    .chev{
+      display: inline-block;
+      font-size: 1.1em;
+      animation: bob 1.5s ease-in-out infinite;
+    }
+    @keyframes bob{
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    /* PORTFOLIO */
+    .portfolio{
+      display: block;
+      padding: 4vh 4vw 8vh;
+      text-align: center;
+    }
+
+    .portfolio-head{
+      max-width: var(--maxw);
+      margin: 0 auto 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .portfolio-pages{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .portfolio-page{
+      background: rgba(0,0,0,.25);
+      backdrop-filter: blur(2px);
+      padding: .75rem;
+      border-radius: .9rem;
+      box-shadow: 0 18px 45px rgba(0,0,0,.55);
+    }
+
+    @supports not (backdrop-filter: blur(2px)){
+      .portfolio-page{ background: rgba(0,0,0,.4); }
+    }
+
+    .portfolio-page img{
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: .5rem;
+      background: #fff;
+    }
+
+  </style>
+</head>
+
+<body>
+  <main id="page">
+
+    <!-- HERO -->
+    <section class="section hero" id="home">
+      <div class="content">
+
+        <h1>Pascal Weidmann</h1>
+
+        <nav class="links">
+          <a href="https://www.instagram.com/pascal.weidmann/" target="_blank">Instagram</a>
+          <a href="https://www.instagram.com/berghof127/" target="_blank">Berghof127</a>
+          <a href="mailto:info@pascalweidmann.com">Mail</a>
+        </nav>
+
+        <!-- ZENTRALER, EXAKT GLEICH BREITER BLOCK -->
+        <div class="bio-wrapper">
+          <div class="bio">
+            <p>
+              <strong>DE ·</strong>
+              Pascal Weidmann (2000) ist ein Künstler, der an der Schnittstelle zwischen Kunst und Landwirtschaft arbeitet.
+              Aufgewachsen auf einem Bauernhof in Embrach, studierte er Fine Arts an der ZHdK und studiert zurzeit
+              Umweltwissenschaften an der ETH Zürich. Er malt mit selbst hergestellten Farben aus ökologischen Düngern
+              und kuratiert Ausstellungen auf dem Familienbetrieb: Berghof127. Dort entwickelt er auch ein Feld für
+              Permakultur und Agroforstwirtschaft – ein langfristiges Projekt, das die Landschaft, in der er aufgewachsen
+              ist, verändert.
+            </p>
+            <p>
+              <strong>EN ·</strong>
+              Pascal Weidmann (2000) is an artist who works at the interface between art and agriculture. He grew up on a
+              farm in Embrach, studied Fine Arts at ZHdK and is currently studying Environmental Sciences at ETH Zurich.
+              He paints with self-made paints from ecological fertilizers and curates exhibitions on the family farm:
+              Berghof127. There, he is also developing a field for permaculture and agroforestry – a long-term project
+              that is changing the landscape in which he grew up.
+            </p>
+          </div>
+        </div>
+
+        <!-- Button direkt vor dem Block, NICHT fix unten -->
+        <div class="cta-down" id="ctaDown">
+          <a class="button" href="#portfolio">Zum Portfolio&nbsp;<span class="chev">↓</span></a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="section portfolio" id="portfolio">
+      <header class="portfolio-head">
+        <h2>Portfolio</h2>
+        <a class="button" href="portfolio.pdf" download>Download&nbsp;PDF</a>
+      </header>
+
+      <div class="portfolio-pages" id="portfolioPages"></div>
+    </section>
+
+  </main>
+
+  <script>
+    (function(){
+
+      const cta = document.getElementById('ctaDown');
+      const portfolio = document.getElementById('portfolio');
+
+      if ('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting){
+              cta.classList.add('is-hidden');
+            }else{
+              cta.classList.remove('is-hidden');
+            }
+          });
+        }, { threshold: 0.2 });
+        io.observe(portfolio);
+      }
+
+      // Portfolio-Bilder bis 100 automatisch laden
+      const container = document.getElementById('portfolioPages');
+
+      for(let i = 1; i <= 100; i++){
+        const wrapper = document.createElement('div');
+        wrapper.className = 'portfolio-page';
+
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.src = (i === 1)
+          ? 'portfolio/Portfolio.jpg'
+          : `portfolio/Portfolio${i}.jpg`;
+        img.alt = `Portfolio Seite ${i}`;
+
+        img.onerror = function(){
+          wrapper.remove();
+        };
+
+        wrapper.appendChild(img);
+        container.appendChild(wrapper);
+      }
+
+    })();
+  </script>
+
+</body>
+</html>

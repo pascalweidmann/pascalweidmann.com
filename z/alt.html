@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pascal Weidmann</title>
+  <meta name="description" content="Portfolio-Website Pascal Weidmann" />
+
+  <style>
+    /* --- Base / Reset --- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    :root { --maxw: 900px; }
+
+    /* --- Page / Background --- */
+    body{
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #fff;
+      background: url("hintergrundbild.jpg") center center / cover no-repeat fixed;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory; /* snap between sections */
+    }
+    @media (hover: none) and (pointer: coarse){
+      body{ background-attachment: scroll; }
+    }
+
+    /* --- Sections --- */
+    .section{
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 6vh 6vw;
+      position: relative;
+      scroll-snap-align: start;
+    }
+    .content{
+      max-width: var(--maxw);
+      width: 100%;
+      text-align: center;
+    }
+
+    /* --- Typography --- */
+    h1{
+      margin: 0 0 1rem 0;
+      line-height: 1.1;
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      text-shadow: 0 2px 10px rgba(0,0,0,.35);
+      letter-spacing: .02em;
+    }
+    h2{
+      margin: 0;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      text-shadow: 0 2px 8px rgba(0,0,0,.35);
+      font-weight: 600;
+    }
+    p{
+      margin: .65rem 0 0 0;
+      line-height: 1.65;
+      font-size: clamp(1rem, 1.8vw, 1.1rem);
+    }
+
+    /* Nur auf der Bio: mehrschichtiger Outline-Textschatten für Lesbarkeit */
+    .bio p{
+      text-shadow:
+        0 0 1px rgba(0,0,0,.75),
+        0 1px 2px rgba(0,0,0,.65),
+        0 2px 6px rgba(0,0,0,.55),
+        0 0 12px rgba(0,0,0,.45);
+    }
+
+    /* --- Links --- */
+    .links{
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: .5rem 0 0.25rem;
+    }
+    a{
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.65);
+      padding-bottom: 2px;
+      transition: border-color .2s ease, opacity .2s ease;
+    }
+    a:hover, a:focus{ border-color: #fff; opacity: .95; outline: none; }
+
+    /* --- Hero --- */
+    .hero .bio{ margin-top: 1.1rem; }
+
+    /* Fixer „Zum Portfolio“-Button im Hero */
+    .cta-down{
+      position: fixed;
+      left: 50%;
+      bottom: 2.25rem;
+      transform: translateX(-50%);
+      z-index: 5;
+      opacity: 1;
+      transition: opacity .25s ease, transform .08s ease;
+    }
+    .cta-down.is-hidden{ opacity: 0; pointer-events: none; }
+    .cta-down .button{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem 1rem;
+      border: 1px solid rgba(255,255,255,.75);
+      border-radius: .85rem;
+      background: rgba(0,0,0,0); /* transparent */
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color .2s ease, transform .08s ease;
+      backdrop-filter: none; /* konsistent minimal */
+    }
+    .cta-down .button:hover, .cta-down .button:focus{ border-color: #fff; outline: none; }
+    .cta-down .button:active{ transform: translateY(1px); }
+
+    /* dezente Bounce-Animation des Pfeils, bis gescrollt wurde */
+    .chev{
+      display: inline-block;
+      font-size: 1.1em;
+      line-height: 1;
+      animation: bob 1.5s ease-in-out infinite;
+    }
+    @keyframes bob{
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    /* --- Portfolio Section --- */
+    .portfolio { padding: 0; }
+    .portfolio .overlay{
+      position: absolute;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(92vw, var(--maxw));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 2;
+      pointer-events: none;
+      text-align: center;
+    }
+    .portfolio .overlay *{ pointer-events: auto; }
+
+    .button{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem 1rem;
+      border: 1px solid rgba(255,255,255,.75);
+      border-radius: .85rem;
+      background: transparent;
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color .2s ease, transform .08s ease;
+    }
+    .button:hover, .button:focus{ border-color: #fff; outline: none; }
+    .button:active{ transform: translateY(1px); }
+
+    /* PDF-Viewer füllt den Viewport randlos aus */
+    .viewer{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* Fallback bei fehlender PDF-Einbettung */
+    .fallback{
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(0,0,0,.15);
+      backdrop-filter: blur(2px);
+    }
+    @supports not (backdrop-filter: blur(2px)){
+      .fallback{ background: rgba(0,0,0,.25); }
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce){
+      html:focus-within { scroll-behavior: auto; }
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <main id="page">
+    <!-- Section 1: Hero -->
+    <section class="section hero" id="home" aria-label="Intro">
+      <div class="content">
+        <h1>Pascal Weidmann</h1>
+
+        <nav class="links" aria-label="Links">
+          <a href="https://www.instagram.com/pascal.weidmann/" target="_blank" rel="noopener" aria-label="Instagram – Pascal Weidmann">Instagram</a>
+          <a href="https://www.instagram.com/berghof127/" target="_blank" rel="noopener" aria-label="Instagram – Berghof127">Berghof127</a>
+          <a href="mailto:info@pascalweidmann.com" aria-label="E-Mail an Pascal Weidmann">Mail</a>
+        </nav>
+
+        <div class="bio" aria-label="Biografie DE und EN">
+          <p>
+            <strong>DE ·</strong>
+            Pascal Weidmann (2000) ist ein Künstler, der an der Schnittstelle zwischen Kunst und Landwirtschaft arbeitet.
+            Aufgewachsen auf einem Bauernhof in Embrach, studierte er Fine Arts an der ZHdK und studiert zurzeit
+            Umweltwissenschaften an der ETH Zürich. Er malt mit selbst hergestellten Farben aus ökologischen Düngern
+            und kuratiert Ausstellungen auf dem Familienbetrieb: Berghof127. Dort entwickelt er auch ein Feld für
+            Permakultur und Agroforstwirtschaft – ein langfristiges Projekt, das die Landschaft, in der er aufgewachsen
+            ist, verändert.
+          </p>
+          <p>
+            <strong>EN ·</strong>
+            Pascal Weidmann (2000) is an artist who works at the interface between art and agriculture. He grew up on a
+            farm in Embrach, studied Fine Arts at ZHdK and is currently studying Environmental Sciences at ETH Zurich.
+            He paints with self-made paints from ecological fertilizers and curates exhibitions on the family farm:
+            Berghof127. There, he is also developing a field for permaculture and agroforestry – a long-term project
+            that is changing the landscape in which he grew up.
+          </p>
+        </div>
+      </div>
+
+      <!-- Fixer Scroll-CTA (nur im Hero sichtbar) -->
+      <div class="cta-down" id="ctaDown" aria-hidden="false">
+        <a class="button" href="#portfolio" aria-label="Zum Portfolio scrollen">
+          Zum Portfolio&nbsp;<span class="chev">↓</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 2: Portfolio -->
+    <section class="section portfolio" id="portfolio" aria-label="Portfolio-PDF">
+      <div class="overlay" role="group" aria-label="Portfolio-Kopf">
+        <h2>Portfolio</h2>
+        <a class="button" href="portfolio.pdf" download aria-label="Download PDF">Download&nbsp;PDF</a>
+      </div>
+
+      <object class="viewer" data="portfolio.pdf" type="application/pdf">
+        <div class="fallback">
+          <div class="content" style="text-align:center;">
+            <h2 style="margin-bottom:1rem;">PDF-Vorschau nicht verfügbar</h2>
+            <p style="margin-bottom:1rem;">Du kannst das Portfolio hier herunterladen:</p>
+            <p><a class="button" href="portfolio.pdf" download aria-label="Download PDF Fallback">Download&nbsp;PDF</a></p>
+          </div>
+        </div>
+      </object>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      // CTA unten im Hero nur zeigen, solange Portfolio nicht im View ist
+      const cta = document.getElementById('ctaDown');
+      const portfolio = document.getElementById('portfolio');
+
+      if ('IntersectionObserver' in window && cta && portfolio){
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            // Wenn Portfolio in Sicht -> CTA ausblenden
+            if(entry.isIntersecting){
+              cta.classList.add('is-hidden');
+              cta.setAttribute('aria-hidden','true');
+            }else{
+              cta.classList.remove('is-hidden');
+              cta.setAttribute('aria-hidden','false');
+            }
+          });
+        }, { root: null, threshold: 0.15 });
+        io.observe(portfolio);
+      }
+
+      // Sicherheitsanpassung für das PDF-Object (100% Größe)
+      const obj = document.querySelector('.viewer');
+      function fitObject(){
+        if(!obj) return;
+        obj.style.width = '100%';
+        obj.style.height = '100%';
+        obj.style.border = '0';
+      }
+      fitObject();
+      window.addEventListener('resize', fitObject);
+    })();
+  </script>
+</body>
+</html>

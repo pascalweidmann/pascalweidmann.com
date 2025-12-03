@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pascal Weidmann</title>
+  <meta name="description" content="Portfolio-Website Pascal Weidmann" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    :root { --maxw: 900px; }
+
+    body{
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #fff;
+      background: url("hintergrundbild.jpg") center center / cover no-repeat fixed;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (hover:none) and (pointer:coarse){
+      body{ background-attachment: scroll; }
+    }
+
+    /* ---------------- Hero Section ---------------- */
+    .section{
+      min-height: 100svh;
+      padding: 6vh 6vw;
+      position: relative;
+      scroll-snap-align: start;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .content{
+      max-width: var(--maxw);
+      width: 100%;
+      position: relative;
+      text-align: center;
+      z-index: 2; /* Wichtig: vor dem schwarzen Block */
+    }
+
+    /* ---------------- Typografie ---------------- */
+    h1{
+      margin: 0 0 1rem;
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      line-height: 1.1;
+      text-shadow: 0 2px 10px rgba(0,0,0,.35);
+    }
+
+    .links{
+      display: flex;
+      justify-content: center;
+      gap: 1.3rem;
+      margin-top: .4rem;
+    }
+
+    .links a{
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,.7);
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      letter-spacing: .02em;
+      padding-bottom: 2px;
+    }
+
+    .links a:hover{
+      opacity: .95;
+      border-color: #fff;
+    }
+
+    /* ---------------- Schwarzer Block (gleiche Höhe wie Portfolio.jpg) ---------------- */
+    .hero-bg-block{
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 100%;
+      max-width: var(--maxw);
+      height: 400px; /* wird per JS überschrieben */
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(1.5px);
+      border-radius: 1rem;
+      z-index: 1;
+      transition: height .3s ease;
+    }
+
+    @supports not (backdrop-filter: blur(1.5px)){
+      .hero-bg-block{ background: rgba(0,0,0,.28); }
+    }
+
+    /* ---------------- Bio ---------------- */
+    .bio-wrapper{
+      margin-top: 1.3rem;
+      background: transparent; /* der Block ist jetzt dahinter */
+    }
+
+    .bio p{
+      margin: .65rem 0 0;
+      line-height: 1.65;
+      font-size: clamp(1rem, 1.8vw, 1.1rem);
+      text-shadow:
+        0 0 1px rgba(0,0,0,.75),
+        0 1px 2px rgba(0,0,0,.6);
+    }
+
+    /* ---------------- Button ---------------- */
+    .cta-down{
+      margin-top: 1.4rem;
+      opacity: 1;
+      transition: opacity .35s ease;
+    }
+
+    .cta-down.is-hidden{ opacity: 0; pointer-events:none; }
+
+    .button{
+      display: inline-flex;
+      gap: .5rem;
+      padding: .6rem 1.1rem;
+      font-weight: 600;
+      border-radius: .85rem;
+      border: 1px solid rgba(255,255,255,.8);
+      text-decoration: none;
+      color: #fff;
+      background: transparent;
+      white-space: nowrap;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+    }
+
+    .button:hover{ border-color:#fff; }
+
+    /* ---------------- Portfolio ---------------- */
+    .portfolio{
+      padding: 4vh 4vw 8vh;
+      display: block;
+    }
+
+    .portfolio-head{
+      max-width: var(--maxw);
+      margin: 0 auto 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .portfolio-pages{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .portfolio-page{
+      padding: .75rem;
+      border-radius: .9rem;
+      background: rgba(0,0,0,.25);
+      backdrop-filter: blur(2px);
+      box-shadow: 0 18px 45px rgba(0,0,0,.55);
+    }
+
+    .portfolio-page img{
+      width: 100%;
+      display:block;
+      border-radius:.5rem;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <main>
+
+    <!-- ---------------- HERO ---------------- -->
+    <section class="section hero" id="home">
+
+      <!-- Schwarzer Block hinter allem -->
+      <div class="hero-bg-block" id="heroBgBlock"></div>
+
+      <div class="content">
+
+        <h1>Pascal Weidmann</h1>
+
+        <nav class="links">
+          <a href="https://www.instagram.com/pascal.weidmann/">Instagram</a>
+          <a href="https://www.instagram.com/berghof127/">Berghof127</a>
+          <a href="mailto:info@pascalweidmann.com">Mail</a>
+        </nav>
+
+        <div class="bio-wrapper">
+          <div class="bio">
+            <p><strong>DE ·</strong>
+              Pascal Weidmann (2000) ist ein Künstler, der an der Schnittstelle zwischen Kunst und Landwirtschaft arbeitet.
+              Aufgewachsen auf einem Bauernhof in Embrach, studierte er Fine Arts an der ZHdK und studiert zurzeit
+              Umweltwissenschaften an der ETH Zürich. Er malt mit selbst hergestellten Farben aus ökologischen Düngern
+              und kuratiert Ausstellungen auf dem Familienbetrieb: Berghof127. Dort entwickelt er auch ein Feld für
+              Permakultur und Agroforstwirtschaft – ein langfristiges Projekt, das die Landschaft, in der er aufgewachsen ist, verändert.
+            </p>
+
+            <p><strong>EN ·</strong>
+              Pascal Weidmann (2000) is an artist who works at the interface between art and agriculture. He grew up on a
+              farm in Embrach, studied Fine Arts at ZHdK and is currently studying Environmental Sciences at ETH Zurich.
+              He paints with self-made paints from ecological fertilizers and curates exhibitions on the family farm:
+              Berghof127. There, he is also developing a field for permaculture and agroforestry – a long-term project
+              that is changing the landscape in which he grew up.
+            </p>
+          </div>
+        </div>
+
+        <div class="cta-down" id="ctaDown">
+          <a class="button" href="#portfolio">Zum Portfolio&nbsp;↓</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ---------------- PORTFOLIO ---------------- -->
+    <section class="section portfolio" id="portfolio">
+      <header class="portfolio-head">
+        <h2>Portfolio</h2>
+        <a class="button" href="portfolio.pdf" download>Download PDF</a>
+      </header>
+
+      <div class="portfolio-pages" id="portfolioPages"></div>
+    </section>
+
+  </main>
+
+
+  <!-- ---------------- Script ---------------- -->
+  <script>
+    (function(){
+
+      /* Dynamische Höhe des Hero-Blocks = Höhe von Portfolio.jpg */
+      const heroBlock = document.getElementById('heroBgBlock');
+      const testImg = new Image();
+
+      testImg.src = 'portfolio/Portfolio.jpg'; // erste Seite
+      testImg.onload = function(){
+        const ratio = testImg.height / testImg.width;
+        const blockWidth = heroBlock.clientWidth;
+        heroBlock.style.height = `${blockWidth * ratio}px`;
+      };
+
+      /* Button ausblenden, wenn Portfolio sichtbar */
+      const cta = document.getElementById('ctaDown');
+      const portfolio = document.getElementById('portfolio');
+
+      if ('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting){
+              cta.classList.add('is-hidden');
+            } else {
+              cta.classList.remove('is-hidden');
+            }
+          });
+        }, { threshold: 0.2 });
+
+        io.observe(portfolio);
+      }
+
+      /* Portfolio-Bilder automatisch einfügen */
+      const container = document.getElementById('portfolioPages');
+
+      for(let i = 1; i <= 100; i++){
+        const wrapper = document.createElement('div');
+        wrapper.className = 'portfolio-page';
+
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.src = (i === 1)
+          ? 'portfolio/Portfolio.jpg'
+          : `portfolio/Portfolio${i}.jpg`;
+
+        img.onerror = () => wrapper.remove();
+
+        wrapper.appendChild(img);
+        container.appendChild(wrapper);
+      }
+
+    })();
+  </script>
+
+</body>
+</html>

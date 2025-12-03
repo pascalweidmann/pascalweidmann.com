@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Pascal Weidmann</title>
+
+  <style>
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: url("hintergrundbild.jpg") center/cover no-repeat fixed;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --maxw: 900px;
+    }
+
+    .section {
+      min-height: 100svh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8vh 6vw;
+      scroll-snap-align: start;
+      position: relative;
+    }
+
+    .frame {
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      position: relative;
+      text-align: center;
+    }
+
+    /* ---------------------------------------------- */
+    /* TITLE – jetzt etwas kleiner, damit er 100% passt */
+    /* ---------------------------------------------- */
+    h1 {
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+      font-weight: 500;
+      letter-spacing: .018em;
+      font-size: clamp(2.8rem, 9vw, 6.2rem);   /* kleiner als vorher */
+      line-height: 1.05;
+      margin-bottom: 2.8rem;
+      overflow: hidden;
+    }
+
+    /* ---------------------------------------------- */
+    /* LINKS */
+    /* ---------------------------------------------- */
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 1.7rem;
+      margin-bottom: 2.8rem;
+    }
+    .links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: clamp(1.1rem, 2vw, 1.28rem);
+      border-bottom: 1px solid rgba(255,255,255,.5);
+      padding-bottom: 2px;
+      transition: .2s;
+    }
+    .links a:hover {
+      opacity: .9;
+      border-color: #fff;
+    }
+
+    /* ---------------------------------------------- */
+    /* CTA BUTTON */
+    /* ---------------------------------------------- */
+    .cta-down {
+      transition: opacity .35s ease;
+    }
+    .cta-down.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .button {
+      display: inline-flex;
+      gap: .45rem;
+      padding: .58rem 1.2rem;
+      border-radius: .55rem;
+      border: 1px solid rgba(255,255,255,.6);
+      background: rgba(0,0,0,.05);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: clamp(1rem, 1.8vw, 1.12rem);
+      transition: border-color .2s ease, opacity .2s ease;
+    }
+
+    /* ---------------------------------------------- */
+    /* PORTFOLIO */
+    /* ---------------------------------------------- */
+    .portfolio {
+      padding: 6vh 4vw 10vh;
+      display: block;
+    }
+
+    .portfolio-head {
+      max-width: var(--maxw);
+      margin: 0 auto 2.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ---------------------------------------------- */
+    /* SHIFT left: “Portfolio” (2 spaces → ~0.6rem)   */
+    /* SHIFT right: PDF Button (2 spaces → ~0.6rem)  */
+    /* ---------------------------------------------- */
+    .portfolio-head h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600;
+      letter-spacing: .01em;
+      padding-left: 0.6rem;     /* ← 2 spaces nach rechts */
+    }
+
+    .portfolio-head .button {
+      margin-right: 0.6rem;     /* ← 2 spaces nach links */
+    }
+
+    /* Portfolio-Bildcontainer */
+    .portfolio-pages {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .portfolio-page {
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(2px);
+      padding: .7rem;
+      border-radius: .85rem;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+    }
+
+    .portfolio-page img {
+      width: 100%;
+      display: block;
+      border-radius: .5rem;
+      background: #fff;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<main>
+
+  <!-- ---------------- HERO ---------------- -->
+  <section class="section" id="home">
+    <div class="frame">
+
+      <h1>Pascal Weidmann</h1>
+
+      <nav class="links">
+        <a href="https://www.instagram.com/pascal.weidmann/">Instagram</a>
+        <a href="https://www.instagram.com/berghof127/">Berghof127</a>
+        <a href="mailto:info@pascalweidmann.com">Mail</a>
+      </nav>
+
+      <div class="cta-down" id="ctaDown">
+        <a class="button" href="#portfolio">Zum Portfolio ↓</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ---------------- PORTFOLIO ---------------- -->
+  <section class="section portfolio" id="portfolio">
+
+    <header class="portfolio-head frame">
+      <h2>Portfolio</h2>
+      <a class="button" href="portfolio.pdf" download>Download PDF</a>
+    </header>
+
+    <div class="portfolio-pages" id="portfolioPages"></div>
+
+  </section>
+
+</main>
+
+
+<script>
+(function(){
+
+  /* Hide CTA when portfolio visible */
+  const cta = document.getElementById('ctaDown');
+  const portfolio = document.getElementById('portfolio');
+
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          cta.classList.add('is-hidden');
+        } else {
+          cta.classList.remove('is-hidden');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    io.observe(portfolio);
+  }
+
+  /* Load portfolio pages automatically */
+  const container = document.getElementById('portfolioPages');
+
+  for(let i = 1; i <= 100; i++){
+    const wrapper = document.createElement('div');
+    wrapper.className = 'portfolio-page';
+
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.src = (i === 1)
+      ? 'portfolio/Portfolio.jpg'
+      : `portfolio/Portfolio${i}.jpg`;
+
+    img.onerror = () => wrapper.remove();
+
+    wrapper.appendChild(img);
+    container.appendChild(wrapper);
+  }
+
+})();
+</script>
+
+</body>
+</html>
