@@ -173,69 +173,6 @@ body {
       background: #fff;
     }
 
-/* -----------------------------------------
-   RESPONSIVE ANPASSUNGEN (SMARTPHONE + TABLET)
------------------------------------------ */
-
-/* Geräte unter 900px Breite → Tablets, kleine Laptops */
-@media (max-width: 900px) {
-
-  /* Titel etwas kleiner + weniger Abstand */
-  h1 {
-    font-size: clamp(2rem, 10vw, 3.5rem);
-    margin-bottom: 2.2rem;
-    white-space: normal;      /* bricht um, damit nichts abgeschnitten wird */
-  }
-
-  /* Abstand der Links */
-  .links {
-    gap: 1.2rem;
-    margin-bottom: 2.2rem;
-  }
-
-  /* Startseiten-Frame nicht so stark nach oben verschieben */
-  #home .frame {
-    margin-top: -5vh;
-  }
-}
-
-/* Smartphones unter 600px */
-@media (max-width: 600px) {
-
-  /* Hintergrund: fixed deaktivieren → ruckelfrei auf iOS/Android */
-  .bg {
-    position: absolute;       /* statt fixed → Performance! */
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-attachment: scroll;
-  }
-
-  /* Titel noch etwas dynamischer */
-  h1 {
-    font-size: clamp(1.8rem, 12vw, 3rem);
-    line-height: 1.15;
-  }
-
-  /* Elemente etwas enger setzen */
-  .links a {
-    font-size: 1rem;
-  }
-
-  .button {
-    padding: .5rem 1rem;
-    font-size: 1rem;
-  }
-
-  /* Weniger Padding oben/unten auf der Startseite */
-  .section {
-    padding: 6vh 5vw;
-  }
-
-  #home .frame {
-    margin-top: 0; /* perfekte Mittigkeit auf Smartphones */
-  }
-}
-
-
   </style>
 </head>
 
