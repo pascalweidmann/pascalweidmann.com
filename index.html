@@ -204,7 +204,7 @@ body {
 
   /* Hintergrund: fixed deaktivieren → ruckelfrei auf iOS/Android */
   .bg {
-    position: absolute;       /* statt fixed → Performance! */
+    position: fixed;       /* statt fixed → Performance! */
     top: 0; left: 0; right: 0; bottom: 0;
     background-attachment: scroll;
   }
