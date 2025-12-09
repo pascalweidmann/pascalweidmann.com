@@ -309,9 +309,7 @@ body {
 
     const img = document.createElement('img');
     img.loading = 'lazy';
-    img.src = (i === 1)
-      ? 'portfolio/portfolio.jpg'
-      : `portfolio/portfolio${i}.jpg`;
+    img.src = `portfolio/portfolio${i}.jpg`;
 
     img.onerror = () => wrapper.remove();
 
