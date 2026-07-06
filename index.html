@@ -5,15 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Pascal Weidmann – Portfolio</title>
 
-  <meta name="description" content="Portfolio von Pascal Weidmann – aktuelle Arbeiten und Projekte, auch als PDF zum Download."/>
+  <meta name="description" content="Pascal Weidmann – interdisziplinärer Künstler zwischen Kunst und Landwirtschaft. Ökologische Prozesse, Mensch und Kulturland. Studium an ZHdK und ETH Zürich. Portfolio mit aktuellen Arbeiten und Ausstellungen."/>
   <link rel="canonical" href="https://www.pascalweidmann.com/"/>
 
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Pascal Weidmann – Portfolio"/>
-  <meta property="og:description" content="Portfolio von Pascal Weidmann – aktuelle Arbeiten und Projekte."/>
+  <meta property="og:description" content="Interdisziplinärer Künstler zwischen Kunst und Landwirtschaft – Portfolio mit aktuellen Arbeiten und Ausstellungen."/>
   <meta property="og:url" content="https://www.pascalweidmann.com/"/>
   <meta property="og:image" content="https://www.pascalweidmann.com/hintergrundbild.jpg"/>
   <meta name="twitter:card" content="summary_large_image"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Pascal Weidmann",
+    "url": "https://www.pascalweidmann.com/",
+    "image": "https://www.pascalweidmann.com/hintergrundbild.jpg",
+    "jobTitle": "Bildender Künstler",
+    "description": "Interdisziplinärer Künstler mit Fokus auf ökologische Prozesse und die Beziehung zwischen Mensch und Kulturland.",
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "Zürcher Hochschule der Künste" },
+      { "@type": "CollegeOrUniversity", "name": "ETH Zürich" }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/pascal.weidmann/",
+      "https://www.berghof127.com/"
+    ]
+  }
+  </script>
 
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -188,6 +208,16 @@ body {
       aspect-ratio: 2382 / 1684; /* Seitenverhältnis der PDF-Seiten – verhindert Springen beim Laden */
     }
 
+    .portfolio-intro {
+      max-width: var(--maxw);
+      margin: 0 auto 2.4rem;
+      font-size: .98rem;
+      line-height: 1.65;
+      opacity: .85;
+      text-align: center;
+      padding: 0 .7rem;
+    }
+
     .site-footer {
       text-align: center;
       font-size: .85rem;
@@ -293,6 +323,13 @@ body {
       <h2>Portfolio</h2>
       <a class="button" href="Portfolio_Pascal_Weidmann.pdf" download>Download PDF</a>
     </header>
+
+    <p class="portfolio-intro">
+      Pascal Weidmann ist ein interdisziplinärer Künstler. Aufgewachsen auf einem Landwirtschaftsbetrieb
+      mit Beeren-, Gemüse- und Getreideanbau, verbindet er in seiner künstlerischen Praxis ökologische
+      Prozesse mit der Beziehung zwischen Mensch und Kulturland. Er studierte Fine Arts an der Zürcher
+      Hochschule der Künste und Umweltnaturwissenschaften an der ETH Zürich.
+    </p>
 
     <div class="portfolio-pages" id="portfolioPages"></div>
 
