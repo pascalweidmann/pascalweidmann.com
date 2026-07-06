@@ -208,14 +208,17 @@ body {
       aspect-ratio: 2382 / 1684; /* Seitenverhältnis der PDF-Seiten – verhindert Springen beim Laden */
     }
 
-    .portfolio-intro {
-      max-width: var(--maxw);
-      margin: 0 auto 2.4rem;
-      font-size: .98rem;
-      line-height: 1.65;
-      opacity: .85;
-      text-align: center;
-      padding: 0 .7rem;
+    /* Nur für Screenreader/Suchmaschinen – visuell unsichtbar */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
     }
 
     .site-footer {
@@ -324,11 +327,12 @@ body {
       <a class="button" href="Portfolio_Pascal_Weidmann.pdf" download>Download PDF</a>
     </header>
 
-    <p class="portfolio-intro">
+    <p class="sr-only">
       Pascal Weidmann ist ein interdisziplinärer Künstler. Aufgewachsen auf einem Landwirtschaftsbetrieb
       mit Beeren-, Gemüse- und Getreideanbau, verbindet er in seiner künstlerischen Praxis ökologische
       Prozesse mit der Beziehung zwischen Mensch und Kulturland. Er studierte Fine Arts an der Zürcher
-      Hochschule der Künste und Umweltnaturwissenschaften an der ETH Zürich.
+      Hochschule der Künste und Umweltnaturwissenschaften an der ETH Zürich. Das Portfolio mit
+      aktuellen Arbeiten und Ausstellungen ist als PDF verfügbar.
     </p>
 
     <div class="portfolio-pages" id="portfolioPages"></div>
