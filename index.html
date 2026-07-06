@@ -3,7 +3,20 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Pascal Weidmann</title>
+  <title>Pascal Weidmann – Portfolio</title>
+
+  <meta name="description" content="Portfolio von Pascal Weidmann – aktuelle Arbeiten und Projekte, auch als PDF zum Download."/>
+  <link rel="canonical" href="https://www.pascalweidmann.com/"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Pascal Weidmann – Portfolio"/>
+  <meta property="og:description" content="Portfolio von Pascal Weidmann – aktuelle Arbeiten und Projekte."/>
+  <meta property="og:url" content="https://www.pascalweidmann.com/"/>
+  <meta property="og:image" content="https://www.pascalweidmann.com/hintergrundbild.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 
   <style>
     *,
@@ -160,6 +173,7 @@ body {
 
     .portfolio-page {
       background: rgba(0,0,0,.18);
+      -webkit-backdrop-filter: blur(2px);
       backdrop-filter: blur(2px);
       padding: .7rem;
       border-radius: .85rem;
@@ -171,6 +185,14 @@ body {
       display: block;
       border-radius: .5rem;
       background: #fff;
+      aspect-ratio: 2382 / 1684; /* Seitenverhältnis der PDF-Seiten – verhindert Springen beim Laden */
+    }
+
+    .site-footer {
+      text-align: center;
+      font-size: .85rem;
+      opacity: .7;
+      padding: 0 6vw 4vh;
     }
 
 /* -----------------------------------------
@@ -278,6 +300,10 @@ body {
 
 </main>
 
+<footer class="site-footer">
+  © 2026 Pascal Weidmann – Alle Rechte vorbehalten. Vervielfältigung oder Verwendung der Arbeiten nur mit ausdrücklicher Genehmigung.
+</footer>
+
 
 <script>
 (function(){
@@ -300,16 +326,18 @@ body {
     io.observe(portfolio);
   }
 
-  /* Load portfolio pages automatically */
+  /* Load portfolio pages */
+  const PAGES = 46; /* Bei neuem Portfolio: an Seitenzahl des PDFs anpassen! */
   const container = document.getElementById('portfolioPages');
 
-  for(let i = 1; i <= 100; i++){
+  for(let i = 1; i <= PAGES; i++){
     const wrapper = document.createElement('div');
     wrapper.className = 'portfolio-page';
 
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.src = `portfolio/Portfolio${i}.jpg`;
+    img.alt = `Portfolio Pascal Weidmann – Seite ${i}`;
 
     img.onerror = () => wrapper.remove();
 
