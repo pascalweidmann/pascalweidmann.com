@@ -1,0 +1,265 @@
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #fff;
+  scroll-behavior: smooth;
+  /* Kein Gummiband-Effekt am oberen/unteren Rand: Dort würde beim Überziehen
+     sonst der Seitenhintergrund statt des Bildes sichtbar (iOS 16+, Chrome) */
+  overscroll-behavior: none;
+}
+
+/* EINE einzige Bildebene: das Foto ist der Hintergrund der Seite selbst.
+   Nur diese Fläche zieht iOS bis unter Status- und Bedienleiste durch – ein
+   Element im Seiteninhalt wird am Fensterrand abgeschnitten. Die Randzugabe
+   sorgt dafür, dass das Bild wirklich unter beide Leisten reicht.
+
+   Es bleibt beim Scrollen stehen, OHNE background-attachment: fixed (das setzt
+   iOS nicht um und streckt das Bild unscharf über die ganze Seitenlänge):
+   Das Dokument selbst scrollt gar nicht, es scrollt nur .scroller darin.
+   Dadurch kann der Seitenhintergrund sich von sich aus nicht bewegen. */
+html {
+  overflow: hidden;
+  height: calc(100vh + 2 * var(--rand));
+  height: calc(100lvh + 2 * var(--rand));
+  /* Exakt die Bildfarbe direkt unterhalb der Statusleiste (aus dem Foto
+     gemessen). Safari färbt die Statusleiste mit dieser Farbe – so fällt der
+     Übergang zum Bild nicht auf. Kein theme-color setzen: das würde auch die
+     untere Leiste wieder deckend machen, wo jetzt das Bild steht. */
+  background-color: #7a6f64;
+  background-image: url("hintergrundbild.jpg");
+  background-position: center calc(-1 * var(--rand));
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* body ohne eigenen Hintergrund, sonst würde er das Bild überdecken */
+body {
+  overflow: hidden;
+}
+
+/* Der eigentliche Scroll-Container – genau fenstergross */
+.scroller {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+}
+
+:root {
+  --maxw: 900px;
+  /* Randzugabe über und unter dem Fenster, damit das Bild bis unter Status-
+     und Bedienleiste reicht. Preis dafür: das Bild ist minim stärker
+     angeschnitten. */
+  --rand: 70px;
+}
+
+.section {
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Inhalt bleibt frei von Notch / Home-Indicator, Bild läuft darunter durch */
+  padding:
+    max(8vh, env(safe-area-inset-top, 0px))
+    max(6vw, env(safe-area-inset-right, 0px))
+    max(8vh, env(safe-area-inset-bottom, 0px))
+    max(6vw, env(safe-area-inset-left, 0px));
+}
+
+.frame {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+#home .frame {
+  margin-top: -15vh;
+}
+
+h1 {
+  font-weight: 500;
+  letter-spacing: .018em;
+  font-size: clamp(2.6rem, 9vw, 5.6rem);
+  line-height: 1.2;
+  margin-bottom: 2.8rem;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 1.7rem;
+  margin-bottom: 2.8rem;
+}
+
+.links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2vw, 1.28rem);
+  border-bottom: 1px solid rgba(255,255,255,.5);
+  padding-bottom: 2px;
+  transition: .2s;
+}
+
+.links a:hover {
+  opacity: .9;
+  border-color: #fff;
+}
+
+.cta-down {
+  transition: opacity .35s ease;
+}
+
+.cta-down.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.button {
+  display: inline-flex;
+  gap: .45rem;
+  padding: .58rem 1.2rem;
+  border-radius: .55rem;
+  border: 1px solid rgba(255,255,255,.6);
+  background: rgba(0,0,0,.05);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: clamp(1rem, 1.8vw, 1.12rem);
+  transition: border-color .2s ease;
+}
+
+.portfolio {
+  padding:
+    6vh
+    max(4vw, env(safe-area-inset-right, 0px))
+    max(10vh, env(safe-area-inset-bottom, 0px))
+    max(4vw, env(safe-area-inset-left, 0px));
+  display: block;
+}
+
+.portfolio-head {
+  max-width: var(--maxw);
+  margin: 0 auto 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.portfolio-head h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: .01em;
+  padding-left: 0.6rem;
+}
+
+.portfolio-head .button {
+  margin-right: 0.7rem;
+}
+
+.portfolio-pages {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.portfolio-page {
+  background: rgba(0,0,0,.18);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  padding: .7rem;
+  border-radius: .85rem;
+  box-shadow: 0 14px 40px rgba(0,0,0,.45);
+}
+
+.portfolio-page img {
+  width: 100%;
+  display: block;
+  border-radius: .5rem;
+  background: #fff;
+  aspect-ratio: 2382 / 1684; /* Seitenverhältnis der PDF-Seiten – verhindert Springen beim Laden */
+}
+
+/* Nur für Screenreader/Suchmaschinen – visuell unsichtbar */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.site-footer {
+  text-align: center;
+  font-size: .85rem;
+  opacity: .7;
+  padding:
+    0
+    max(6vw, env(safe-area-inset-right, 0px))
+    max(4vh, env(safe-area-inset-bottom, 0px))
+    max(6vw, env(safe-area-inset-left, 0px));
+}
+
+/* Tablets und kleine Laptops */
+@media (max-width: 900px) {
+  h1 {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    margin-bottom: 2.2rem;
+    white-space: normal; /* bricht um, damit nichts abgeschnitten wird */
+  }
+
+  .links {
+    gap: 1.2rem;
+    margin-bottom: 2.2rem;
+  }
+
+  #home .frame {
+    margin-top: -5vh;
+  }
+}
+
+/* Smartphones */
+@media (max-width: 600px) {
+  h1 {
+    font-size: clamp(1.8rem, 12vw, 3rem);
+    line-height: 1.15;
+  }
+
+  .links a {
+    font-size: 1rem;
+  }
+
+  .button {
+    padding: .5rem 1rem;
+    font-size: 1rem;
+  }
+
+  .section {
+    padding:
+      max(6vh, env(safe-area-inset-top, 0px))
+      max(5vw, env(safe-area-inset-right, 0px))
+      max(6vh, env(safe-area-inset-bottom, 0px))
+      max(5vw, env(safe-area-inset-left, 0px));
+  }
+
+  #home .frame {
+    margin-top: 0; /* perfekte Mittigkeit auf Smartphones */
+  }
+}
