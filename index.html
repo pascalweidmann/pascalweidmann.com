@@ -54,13 +54,17 @@
   overscroll-behavior: none;
 }
 
-/* Der Seitenhintergrund ist die einzige Fläche, die iOS bis unter Status- und
-   Bedienleiste durchzieht – ein Element im Seiteninhalt kann das nicht.
-   Bewusst OHNE background-attachment: fixed: iOS setzt das nicht um und streckt
-   das Bild dann über die gesamte Seitenlänge (unscharf und mitscrollend).
-   Die Höhe 100lvh entspricht exakt der von .bg, damit beide denselben
-   Bildausschnitt zeigen und deckungsgleich übereinanderliegen. */
+/* EINE einzige Bildebene: das Foto ist der Hintergrund der Seite selbst.
+   Nur diese Fläche zieht iOS bis unter Status- und Bedienleiste durch – ein
+   Element im Seiteninhalt wird am Fensterrand abgeschnitten. Die Randzugabe
+   sorgt dafür, dass das Bild wirklich unter beide Leisten reicht.
+
+   Es bleibt beim Scrollen stehen, OHNE background-attachment: fixed (das setzt
+   iOS nicht um und streckt das Bild unscharf über die ganze Seitenlänge):
+   Das Dokument selbst scrollt gar nicht, es scrollt nur .scroller darin.
+   Dadurch kann der Seitenhintergrund sich von sich aus nicht bewegen. */
 html {
+  overflow: hidden;
   height: calc(100vh + 2 * var(--rand));
   height: calc(100lvh + 2 * var(--rand));
   background-color: #82786a;
@@ -70,21 +74,22 @@ html {
   background-repeat: no-repeat;
 }
 
-/* Am Rechner funktioniert fixed einwandfrei – dort bleibt das Bild wie bisher
-   beim Scrollen stehen. (hover/pointer schliesst Touchgeräte aus.) */
-@media (hover: hover) and (pointer: fine) {
-  html {
-    background-attachment: fixed;
-    /* Mit fixed bemisst sich cover am Fenster statt an der Fläche oben –
-       der Versatz muss deshalb entfallen, sonst bleibt unten ein Streifen. */
-    background-position: center;
-  }
-}
-
 /* body ohne eigenen Hintergrund, sonst würde er das Bild überdecken */
 body {
-  position: relative;
+  overflow: hidden;
+}
+
+/* Der eigentliche Scroll-Container – genau fenstergross */
+.scroller {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
 }
 
 
@@ -332,6 +337,8 @@ body {
 
 <body>
 
+<div class="scroller">
+
 <main>
 
   <!-- ---------------- HERO ---------------- -->
@@ -378,6 +385,8 @@ body {
 <footer class="site-footer">
   © 2026 Pascal Weidmann – Alle Rechte vorbehalten. Vervielfältigung oder Verwendung der Arbeiten nur mit ausdrücklicher Genehmigung.
 </footer>
+
+</div><!-- /.scroller -->
 
 
 <script>
