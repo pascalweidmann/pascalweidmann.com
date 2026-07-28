@@ -54,31 +54,34 @@
   overscroll-behavior: none;
 }
 
-/* Das Foto ist der Seitenhintergrund selbst (nicht nur ein Element darin):
-   Aus dieser Fläche leitet iOS die Färbung von Status- und Bedienleiste ab.
-   Der Farbwert dahinter ist nur Reserve, falls das Bild noch nicht geladen ist. */
+/* Der Seitenhintergrund ist die einzige Fläche, die iOS bis unter Status- und
+   Bedienleiste durchzieht – ein Element im Seiteninhalt kann das nicht.
+   Bewusst OHNE background-attachment: fixed: iOS setzt das nicht um und streckt
+   das Bild dann über die gesamte Seitenlänge (unscharf und mitscrollend).
+   Die Höhe 100lvh entspricht exakt der von .bg, damit beide denselben
+   Bildausschnitt zeigen und deckungsgleich übereinanderliegen. */
 html {
-  background: #82786a url("hintergrundbild.jpg") center / cover no-repeat fixed;
+  height: 100lvh;
+  background: #82786a url("hintergrundbild.jpg") center / cover no-repeat;
 }
 
-/* body bewusst ohne eigenen Hintergrund – sonst würde er das Bild überdecken */
+/* body ohne eigenen Hintergrund, sonst würde er das Bild überdecken */
 body {
   position: relative;
   overflow-x: hidden;
 }
 
-/* Neues fixes Hintergrund-Layer */
+/* Fixer Bild-Layer: hält den Ausschnitt beim Scrollen an Ort und Stelle */
 .bg {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 100vh;
-  /* lvh = grösste Viewporthöhe: bleibt gefüllt, wenn die Browserleiste einfährt */
   height: 100lvh;
   background: url("hintergrundbild.jpg") center/cover no-repeat;
   z-index: -1;
-  will-change: transform; /* hilft Browser bei der Performance */
+  will-change: transform;
 }
 
     :root {
@@ -319,7 +322,6 @@ body {
 </head>
 
 <body>
-  
   <div class="bg"></div>
 
 <main>
