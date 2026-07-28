@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#82786a"/>
   <title>Pascal Weidmann – Portfolio</title>
 
   <meta name="description" content="Pascal Weidmann – interdisziplinärer Künstler zwischen Kunst und Landwirtschaft. Ökologische Prozesse, Mensch und Kulturland. Studium an ZHdK und ETH Zürich. Portfolio mit aktuellen Arbeiten und Ausstellungen."/>
@@ -53,7 +54,8 @@
 
 /* Body bekommt nur noch eine Hintergrundfarbe */
 body {
-  background: #000; /* fallback, kannst du anpassen */
+  /* Grundton aus dem Hintergrundbild – so ist nie ein schwarzer Rand sichtbar */
+  background: #82786a;
   position: relative;
   overflow-x: hidden;
 }
@@ -61,7 +63,12 @@ body {
 /* Neues fixes Hintergrund-Layer */
 .bg {
   position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  /* lvh = grösste Viewporthöhe: bleibt gefüllt, wenn die Browserleiste einfährt */
+  height: 100lvh;
   background: url("hintergrundbild.jpg") center/cover no-repeat;
   z-index: -1;
   will-change: transform; /* hilft Browser bei der Performance */
@@ -76,7 +83,12 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 8vh 6vw;
+      /* Inhalt bleibt frei von Notch / Home-Indicator, Bild läuft darunter durch */
+      padding:
+        max(8vh, env(safe-area-inset-top, 0px))
+        max(6vw, env(safe-area-inset-right, 0px))
+        max(8vh, env(safe-area-inset-bottom, 0px))
+        max(6vw, env(safe-area-inset-left, 0px));
     }
 
     .frame {
@@ -155,7 +167,11 @@ body {
     /* PORTFOLIO */
     /* ---------------------------------------------- */
     .portfolio {
-      padding: 6vh 4vw 10vh;
+      padding:
+        6vh
+        max(4vw, env(safe-area-inset-right, 0px))
+        max(10vh, env(safe-area-inset-bottom, 0px))
+        max(4vw, env(safe-area-inset-left, 0px));
       display: block;
     }
 
@@ -225,7 +241,11 @@ body {
       text-align: center;
       font-size: .85rem;
       opacity: .7;
-      padding: 0 6vw 4vh;
+      padding:
+        0
+        max(6vw, env(safe-area-inset-right, 0px))
+        max(4vh, env(safe-area-inset-bottom, 0px))
+        max(6vw, env(safe-area-inset-left, 0px));
     }
 
 /* -----------------------------------------
@@ -257,13 +277,6 @@ body {
 /* Smartphones unter 600px */
 @media (max-width: 600px) {
 
-  /* Hintergrund: fixed deaktivieren → ruckelfrei auf iOS/Android */
-  .bg {
-    position: fixed;       /* statt fixed → Performance! */
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-attachment: scroll;
-  }
-
   /* Titel noch etwas dynamischer */
   h1 {
     font-size: clamp(1.8rem, 12vw, 3rem);
@@ -282,7 +295,11 @@ body {
 
   /* Weniger Padding oben/unten auf der Startseite */
   .section {
-    padding: 6vh 5vw;
+    padding:
+      max(6vh, env(safe-area-inset-top, 0px))
+      max(5vw, env(safe-area-inset-right, 0px))
+      max(6vh, env(safe-area-inset-bottom, 0px))
+      max(5vw, env(safe-area-inset-left, 0px));
   }
 
   #home .frame {
