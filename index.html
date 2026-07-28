@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <meta name="theme-color" content="#82786a"/>
   <title>Pascal Weidmann – Portfolio</title>
 
   <meta name="description" content="Pascal Weidmann – interdisziplinärer Künstler zwischen Kunst und Landwirtschaft. Ökologische Prozesse, Mensch und Kulturland. Studium an ZHdK und ETH Zürich. Portfolio mit aktuellen Arbeiten und Ausstellungen."/>
@@ -50,6 +49,9 @@
   -webkit-font-smoothing: antialiased;
   color: #fff;
   scroll-behavior: smooth;
+  /* Kein Gummiband-Effekt am oberen/unteren Rand: Dort würde beim Überziehen
+     sonst der Seitenhintergrund statt des Bildes sichtbar (iOS 16+, Chrome) */
+  overscroll-behavior: none;
 }
 
 /* Body bekommt nur noch eine Hintergrundfarbe */
