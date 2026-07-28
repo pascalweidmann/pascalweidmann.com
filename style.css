@@ -48,8 +48,10 @@ body {
    Verlauf beginnt am Rand in genau dieser Farbe und läuft ins Bild aus, damit
    dazwischen keine Kante sichtbar ist – oben wie unten.
 
-   z-index: -1 legt den Verlauf hinter den Seiteninhalt, aber über das Foto –
-   so wird nur das Bild eingefärbt, Logo und Text bleiben unberührt.
+   Beide liegen ÜBER dem Inhalt (z-index: 5) und sind am Rand deckend: So löst
+   sich der Inhalt schon im Verlauf auf statt erst an der Kante, und Safari
+   "sieht" unter seiner Bedienleiste nur Farbe. Deren Unschärfe greift weit
+   nach oben – deshalb ist der untere Bereich mit 220px grosszügig bemessen.
 
    Nur auf Touchgeräten: Am Rechner gibt es keine Statusleiste, dort wäre der
    Verlauf bloss ein Schleier ohne Zweck. */
@@ -60,16 +62,16 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 72px;
+    height: 100px;
     background: linear-gradient(
       to bottom,
       rgb(122,111,100) 0,
-      rgba(122,111,100,.72) 28%,
-      rgba(122,111,100,.28) 60%,
+      rgb(122,111,100) 18%,
+      rgba(122,111,100,.55) 55%,
       rgba(122,111,100,0) 100%
     );
     pointer-events: none;
-    z-index: -1;
+    z-index: 5;
   }
 
   /* Unterer Rand: Dieser Verlauf liegt ÜBER dem Inhalt und ist ganz unten
@@ -83,12 +85,12 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 120px;
+    height: 220px;
     background: linear-gradient(
       to top,
       rgb(122,111,100) 0,
-      rgb(122,111,100) 30%,
-      rgba(122,111,100,.55) 62%,
+      rgb(122,111,100) 45%,
+      rgba(122,111,100,.5) 72%,
       rgba(122,111,100,0) 100%
     );
     pointer-events: none;
