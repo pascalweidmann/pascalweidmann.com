@@ -116,6 +116,53 @@
     io.observe(portfolio);
   }
 
+  /* Alt-Texte aus der Textebene des Portfolio-PDFs – macht Werktitel, Material
+     und Masse fuer Screenreader und Suchmaschinen lesbar.
+     Bei neuem Portfolio zusammen mit PAGES nachfuehren! */
+  const ALT = [
+    /*  1 */ 'Pascal Weidmann – Vita: Bachelor Fine Arts ZHdK, Bachelor Umweltnaturwissenschaften und Master Agrarwissenschaften ETH Zürich, ausgewählte Ausstellungen und Kuration.',
+    /*  2 */ '«Permakultur Experimentierfeld», 2025 (ongoing) – plants, straw, wire fence, deadwood, insects, microorganisms, soil, 20 x 60 m.',
+    /*  3 */ '«Permakultur Experimentierfeld», 2025 – weitere Ansicht.',
+    /*  4 */ '«Permakultur Experimentierfeld», 2025 – weitere Ansicht.',
+    /*  5 */ '«Landscape Paintings», 2025 – fertilizer on canvas, 5 x 45 x 60 cm.',
+    /*  6 */ '«Landscape Paintings», 2025 – weitere Ansicht.',
+    /*  7 */ '«Landscape Paintings», 2025 – weitere Ansicht.',
+    /*  8 */ '«12‘000 Pflanzen an einem Tag», 2026 – steel, styrofoam, soil, 210 x 150 x 110 cm. Courtesy of Berghof127.',
+    /*  9 */ '«12‘000 Pflanzen an einem Tag», 2026 – weitere Ansicht.',
+    /* 10 */ '«12‘000 Pflanzen an einem Tag», 2026 – weitere Ansicht.',
+    /* 11 */ '«Lambing Pen», 2025 – built for sheep in the barn; wood, metal, plastic, ropes, salt, water, 110 x 190 x 310 cm.',
+    /* 12 */ '«Lambing Pen», 2025 – weitere Ansicht.',
+    /* 13 */ '«Lambing Pen», 2025 – weitere Ansicht.',
+    /* 14 */ '«Lambing Pen», 2025 – weitere Ansicht.',
+    /* 15 */ '«Fetilizer Jars», 2025 – homemade paint, various dimensions.',
+    /* 16 */ '«Fetilizer Jars», 2025 – weitere Ansicht.',
+    /* 17 */ '«023-78901 – 121-93809», 2023 – 64 ceramic combustion boats, soil, clay, trace mineral fertiliser, showcase, 113 x 39 x 90 cm. Aus der Ausstellung «Pastureland».',
+    /* 18 */ '«023-78901 – 121-93809», 2023 – weitere Ansicht.',
+    /* 19 */ '«Fertilizer Data», 2023 – printed paper, aluminium frame, 31 x 22 cm.',
+    /* 20 */ '«Fertilizer Data», 2023 – weitere Ansicht.',
+    /* 21 */ '«342-28651, 167-47839, 287-29332, 184-12673», 2023 – soil, chalk, skim milk, trace mineral fertiliser, showcase, 119 x 59 x 80 cm. Aus der Ausstellung «Pastureland».',
+    /* 22 */ '«342-28651, 167-47839, 287-29332, 184-12673», 2023 – weitere Ansicht.',
+    /* 23 */ '«342-28651, 167-47839, 287-29332, 184-12673», 2023 – weitere Ansicht.',
+    /* 24 */ '«Untitled (Erdhaufen)», 2024 – soil, chalk, skim milk, trace mineral fertilizer, various dimensions.',
+    /* 25 */ '«Untitled (Erdhaufen)», 2024 – weitere Ansicht.',
+    /* 26 */ '«Untitled (Erdhaufen)», 2024 – weitere Ansicht.',
+    /* 27 */ '«Where Will My Next Stop Be?», 2023 – intervention in mailbox; grass, soil, 13 x 41 x 27 cm.',
+    /* 28 */ '«Samples from the Farm (27.03.23)», 2023 – 20 glass bottles, plants, soil, water, wood, plant lamp, 30 x 40 x 50 cm.',
+    /* 29 */ '«Samples from the Farm (27.03.23)», 2023 – weitere Ansicht.',
+    /* 30 */ '«Plant Table», 2022 – variable dimensions.',
+    /* 31 */ '«Plant Table», 2022 – weitere Ansicht.',
+    /* 32 */ '«Plant Table», 2022 – weitere Ansicht.',
+    /* 33 */ 'Inventar zu «Plant Table», 2022 – Liste der verwendeten Pflanzen und Objekte.',
+    /* 34 */ '«forget me not», 2022 – soil, plaster, flower, 25 x 25 x 15 cm.',
+    /* 35 */ '«forget me not», 2022 – weitere Ansicht.',
+    /* 36 */ '«rurale Nährböden im urbanen Raum (Rural Nutrient Media in the Urban Area)», 2022 – earth, wood, leaves, paper, metal, spray paint; 3 pots, 80 x 40 x 60 cm. Zusammenarbeit mit Ricardo Meli.',
+    /* 37 */ '«rurale Nährböden im urbanen Raum», 2022 – weitere Ansicht.',
+    /* 38 */ '«Humus Project (Geoforensic Research and Transformation of an Extensive Humus Displacement)», 2022 – joint walk and discussions in a nature reserve, 2 h.',
+    /* 39 */ '«Humus Project», 2022 – weitere Ansicht.',
+    /* 40 */ '«Plant a Plant (Blueberry)», 2022 – performance based on a score, 10 min.',
+    /* 41 */ 'Bildnachweise des Portfolios: Samantha Zaugg, Iouri Podladtchikov, Antoine Félix Bürcher, Kush Memeti, Leon Kessler, Hermelien Sabbe.',
+  ];
+
   /* Load portfolio pages */
   const PAGES = 41; /* Bei neuem Portfolio: an Seitenzahl des PDFs anpassen! */
   const container = document.getElementById('portfolioPages');
@@ -127,7 +174,7 @@
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.src = `portfolio/Portfolio${i}.jpg`;
-    img.alt = `Portfolio Pascal Weidmann – Seite ${i}`;
+    img.alt = ALT[i - 1] || `Portfolio Pascal Weidmann – Seite ${i}`;
 
     img.onerror = () => wrapper.remove();
 
